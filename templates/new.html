@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<div class="alert alert-secondary" role="alert">
+  {{ messages[0] }}
+</div>
+{% endif %}
+{% endwith %}
+
+<div class="card">
+    <div class="card-header">
+      Add new site
+    </div>
+
+  <div class="card-body">
+
+    <form method="post">
+      <label for="name" class="form-label">Name</label>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Example" name="name" value="{{ request.form['name'] }}">
+        </div>
+
+      <label for="basic-url" class="form-label">URL</label>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="https://example.com/" name="url" value="{{ request.form['url'] }}">
+        </div>
+
+      <label for="cron" class="form-label">Cron</label>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="https://crontab.guru/" name="cron" value="{{ request.form['cron'] }}">
+        </div>
+      
+      <button type="submit" class="btn btn-primary">Create</button>
+
+    </form>
+  </div>
+</div>
+
+
+
+{% endblock %}

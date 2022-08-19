@@ -1,0 +1,7 @@
+flask
+json2html
+wheel
+flask_sqlalchemy
+#pandas
+Flask-APScheduler
+requests
