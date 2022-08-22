@@ -1,7 +1,7 @@
-__init__.py
 __pycache__
 db.sqlite
 ssl.py
 ssl.html
 README.md
 sites.csv
+build.sh

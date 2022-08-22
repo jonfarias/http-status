@@ -1,13 +1,18 @@
 from flask import render_template, Blueprint, jsonify, request, url_for, flash, redirect
 from json2html import *
+
+# Database
+from .app import db
 from .models import Site
 from .models import Ssl
-from .app import db
 
+# Http Status
 import requests
+
+# Debug
 import sys
 
-#SSL
+# SSL
 import datetime
 import socket
 import ssl
@@ -40,31 +45,27 @@ def new():
         cron = request.form['cron']
 
         if not name:
-            flash('É obrigatório inserir um nome')
+            flash('É obrigatório inserir um nome.')
         elif not url:
-            flash('É obrigatório inserir uma url')
+            flash('É obrigatório inserir uma url.')
         elif not cron:
-            flash('É obrigatório inserir um cron')
+            flash('É obrigatório inserir um cron.')
         else:
             sites = Site.query.filter_by(name=name).first()
             if sites:
-                flash('O site já existe no banco de dados')
+                flash('O site já existe no banco de dados.')
             else:
                 # Get the HTTP Status
-                code = status(url)
+                code = get_status(url)
 
                 # Adiciona um novo site ao banco de dados de HTTP Status
-                new_site_status = Site(url=url, name=name, cron=cron, status=code)
-                db.session.add(new_site_status)
-                db.session.commit()
+                add_status_db(url, name, cron, code)
 
                 # Get SSL Status
                 days, organization, info = get_ssl(url)
 
-                # Adiciona um novo site ao banco de dados de HTTP Status
-                new_site_ssl = Ssl(name=name, domain=url, days=days, organization=organization, status=info)
-                db.session.add(new_site_ssl)
-                db.session.commit()
+                # Adiciona um novo site ao banco de dados de SSL Status
+                add_ssl_db(name, url, days, organization, info)
 
                 flash('Site adicionado com sucesso')
 
@@ -95,7 +96,23 @@ def run_http_status():
 
 
 ##################
-def status(url):
+def add_status_db(url, name, cron, code):
+
+    # Adiciona um novo site ao banco de dados de HTTP Status
+    new_site_status = Site(url=url, name=name, cron=cron, status=code)
+    db.session.add(new_site_status)
+    db.session.commit()
+
+def add_ssl_db(name, url, days, organization, info):
+
+    # Adiciona um novo site ao banco de dados de SSL Status
+    new_site_ssl = Ssl(name=name, domain=url, days=days, organization=organization, status=info)
+    db.session.add(new_site_ssl)
+    db.session.commit()
+
+
+
+def get_status(url):
     try:
         r = requests.get(url)
         return r.status_code

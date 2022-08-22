@@ -1,11 +1,9 @@
-from flask import Flask, render_template
-from flask_sqlalchemy import SQLAlchemy
-from flask_apscheduler import APScheduler
+import logging
 import os
 
-db = SQLAlchemy()
-scheduler = APScheduler()
-#load_dotenv()
+from flask import Flask, render_template
+from .extensions import scheduler, db
+
 
 def create_app():
     app = Flask(__name__)
@@ -18,10 +16,15 @@ def create_app():
 
     print(secret)
 
+    # Init App
     db.init_app(app)
     scheduler.init_app(app)
 
-    from .models import Site
+    # Logs
+    logging.getLogger("apscheduler").setLevel(logging.INFO)
+
+    # Import db models
+    from .models import Ssl, Site
 
     with app.app_context():
         db.create_all()

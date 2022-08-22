@@ -5,3 +5,4 @@ flask_sqlalchemy
 #pandas
 Flask-APScheduler
 requests
+flask-crontab
