@@ -1,4 +1,4 @@
-"Log scheduler events."
+"""Log scheduler events."""
 
 from .events import (
     EVENT_JOB_ADDED,
@@ -9,7 +9,7 @@ from .events import (
     EVENT_JOB_SUBMITTED,
 )
 
-from .extensions import scheduler
+from ..extensions import scheduler
 
 
 def job_missed(event):

@@ -1,3 +1,5 @@
+"""Init app."""
+
 import logging
 import os
 
@@ -13,6 +15,7 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SECRET_KEY'] = secret
+    app.config['SCHEDULER_TIMEZONE'] = "America/Sao_Paulo"
 
     print(secret)
 
@@ -21,6 +24,7 @@ def create_app():
     scheduler.init_app(app)
 
     # Logs
+    logging.basicConfig()
     logging.getLogger("apscheduler").setLevel(logging.INFO)
 
     # Import db models

@@ -23,16 +23,16 @@
           <input type="text" class="form-control" placeholder="Example" name="name" value="{{ request.form['name'] }}">
         </div>
 
-      <label for="basic-url" class="form-label">URL</label>
+      <label for="url" class="form-label">URL</label>
         <div class="input-group mb-3">
           <input type="text" class="form-control" placeholder="https://example.com/" name="url" value="{{ request.form['url'] }}">
         </div>
 
-      <label for="cron" class="form-label">Cron</label>
+      <label for="time" class="form-label">Time</label>
         <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="https://crontab.guru/" name="cron" value="{{ request.form['cron'] }}">
+          <input type="text" class="form-control" placeholder="Time in minutes (1 to 10)" name="time" value="{{ request.form['time'] }}">
         </div>
-      
+
       <button type="submit" class="btn btn-primary">Create</button>
 
     </form>

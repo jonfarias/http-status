@@ -49,8 +49,7 @@
                             </td>
                             <td>
                               <div>           
-                                <strong>{{ site.cron}}</strong>
-                                <span class="small text-muted float-right">in less than a minute</span>
+                                {{ site.time}} in {{ site.time}} minutes
                               </div>
                               <div class="small text-muted">
                                 Last: 2022-08-17 00:51:00 UTC
@@ -69,7 +68,7 @@
                               <span class="badge bg-secondary">{{ site.status}}</span>
                               {% endif %}
                               <div class="small text-muted">
-                                cron_1660697438
+                                {{ site.cron_name}}
                               </div>
                             </td>
                           </tr>

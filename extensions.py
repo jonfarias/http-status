@@ -6,4 +6,3 @@ from flask_sqlalchemy import SQLAlchemy
 scheduler = APScheduler()
 db = SQLAlchemy()
 
-
