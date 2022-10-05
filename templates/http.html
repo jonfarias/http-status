@@ -28,16 +28,16 @@
                             <td>
                               <div class="danger"><a href="{{ site.url }}">{{ site.name }}</a></div>
                               <div class="small text-muted">
-                                {% if site.status >= 200 and site.status <= 299 %}
-                                <span class="badge bg-success">{{ site.status}}</span>
-                                {% elif site.status >= 300 and site.status <= 399 %}
-                                <span class="badge bg-info">{{ site.status}}</span>
-                                {% elif site.status >= 400 and site.status <= 499 %}
-                                <span class="badge bg-warning">{{ site.status}}</span>
-                                {% elif site.status >= 500 and site.status <= 599 %}
-                                <span class="badge bg-danger">{{ site.status}}</span>
+                                {% if site.http_status >= 200 and site.http_status <= 299 %}
+                                <span class="badge bg-success">{{ site.http_status}}</span>
+                                {% elif site.http_status >= 300 and site.http_status <= 399 %}
+                                <span class="badge bg-info">{{ site.http_status}}</span>
+                                {% elif site.http_status >= 400 and site.http_status <= 499 %}
+                                <span class="badge bg-warning">{{ site.http_status}}</span>
+                                {% elif site.http_status >= 500 and site.http_status <= 599 %}
+                                <span class="badge bg-danger">{{ site.http_status}}</span>
                                 {% else %}
-                                <span class="badge bg-secondary">{{ site.status}}</span>
+                                <span class="badge bg-secondary">{{ site.http_status}}</span>
                                 {% endif %}
                               </div>
                             </td>
@@ -49,26 +49,26 @@
                             </td>
                             <td>
                               <div>           
-                                {{ site.time}} in {{ site.time}} minutes
+                                {{ site.cron_time }} in {{ site.cron_time }} minutes
                               </div>
                               <div class="small text-muted">
                                 Last: 2022-08-17 00:51:00 UTC
                               </div> 
                             </td>
                             <td>
-                              {% if site.status >= 200 and site.status <= 299 %}
-                              <span class="badge bg-success">{{ site.status}}</span>
-                              {% elif site.status >= 300 and site.status <= 399 %}
-                              <span class="badge bg-info">{{ site.status}}</span>
-                              {% elif site.status >= 400 and site.status <= 499 %}
-                              <span class="badge bg-warning">{{ site.status}}</span>
-                              {% elif site.status >= 500 and site.status <= 599 %}
-                              <span class="badge bg-danger">{{ site.status}}</span>
+                              {% if site.http_status >= 200 and site.http_status <= 299 %}
+                              <span class="badge bg-success">{{ site.http_status}}</span>
+                              {% elif site.http_status >= 300 and site.http_status <= 399 %}
+                              <span class="badge bg-info">{{ site.http_status}}</span>
+                              {% elif site.http_status >= 400 and site.http_status <= 499 %}
+                              <span class="badge bg-warning">{{ site.http_status}}</span>
+                              {% elif site.http_status >= 500 and site.http_status <= 599 %}
+                              <span class="badge bg-danger">{{ site.http_status}}</span>
                               {% else %}
-                              <span class="badge bg-secondary">{{ site.status}}</span>
+                              <span class="badge bg-secondary">{{ site.http_status}}</span>
                               {% endif %}
                               <div class="small text-muted">
-                                {{ site.cron_name}}
+                                {{ site.cron_id}}
                               </div>
                             </td>
                           </tr>

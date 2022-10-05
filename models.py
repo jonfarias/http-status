@@ -1,17 +1,17 @@
 from .app import db
 
 class Site(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(64), index=True, unique=True)
-    url = db.Column(db.String(64))
-    time = db.Column(db.Integer)
-    cron_name = db.Column(db.String(64))
-    status = db.Column(db.Integer)
+    id = db.Column(db.Integer, primary_key=True) # 0
+    name = db.Column(db.String(24), index=True, unique=True) # Google
+    url = db.Column(db.String(24)) # https://google.com.br
+    cron_time = db.Column(db.Integer) # 1|2|3|4|5 minutes
+    cron_id = db.Column(db.String(24), unique=True) # cron_321456567
+    http_status = db.Column(db.Integer) # 200 | 300 | 400 | 500
 
 class Ssl(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(64), index=True, unique=True)
-    domain = db.Column(db.String(64))
+    name = db.Column(db.String(24), index=True, unique=True)
+    domain = db.Column(db.String(24))
     days = db.Column(db.Integer)
-    organization = db.Column(db.String(64))
-    status = db.Column(db.String(64))
+    organization = db.Column(db.String(24))
+    status = db.Column(db.String(24))

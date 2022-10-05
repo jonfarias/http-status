@@ -28,9 +28,9 @@
           <input type="text" class="form-control" placeholder="https://example.com/" name="url" value="{{ request.form['url'] }}">
         </div>
 
-      <label for="time" class="form-label">Time</label>
+      <label for="cron_time" class="form-label">Time</label>
         <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Time in minutes (1 to 10)" name="time" value="{{ request.form['time'] }}">
+          <input type="text" class="form-control" placeholder="Time in minutes (1 to 5)" name="cron_time" value="{{ request.form['cron_time'] }}">
         </div>
 
       <button type="submit" class="btn btn-primary">Create</button>

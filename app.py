@@ -3,9 +3,13 @@
 import logging
 import os
 
-from flask import Flask, render_template
-from .extensions import scheduler, db
+from flask import Flask, render_template, send_from_directory
+from .extensions import scheduler, db, talisman
 
+csp = {
+    'default-src': ['\'self\''],
+    'object-src': '\'none\'',
+}
 
 def create_app():
     app = Flask(__name__)
@@ -22,6 +26,7 @@ def create_app():
     # Init App
     db.init_app(app)
     scheduler.init_app(app)
+    talisman.init_app(app, content_security_policy=csp)
 
     # Logs
     logging.basicConfig()

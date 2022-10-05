@@ -1,3 +1,4 @@
+# Flask Dependencies
 from flask import render_template, Blueprint, jsonify, request, url_for, flash, redirect
 from json2html import *
 
@@ -5,8 +6,10 @@ from json2html import *
 from .app import db
 from .models import Site, Ssl
 
-from .functions.http import get_http_status, add_http_db, add_http_task
-from .functions.ssl import get_ssl_status, add_ssl_db
+# Import some functions
+from .functions import http
+from .functions import ssl
+from .functions import tasks
 
 main = Blueprint('main', __name__)
 
@@ -33,35 +36,35 @@ def new_site():
     if request.method == 'POST':
         url = request.form['url']
         name = request.form['name']
-        time = request.form['time']
+        cron_time = request.form['cron_time']
 
-        if not name:
+        if not name or name.isdigit():
             flash('É obrigatório inserir um nome.')
-        elif not url:
+        elif not url or url.isdigit() or not 'https://' in url or 'http://' in url:
             flash('É obrigatório inserir uma url.')
-        elif not time:
-            flash('É obrigatório inserir um tempo.')
+        elif not cron_time or not cron_time.isdigit() or int(cron_time)<=0 and int(cron_time)>=6:
+            flash('É obrigatório inserir um tempo entre 1 e 5 minutos.')
         else:
             sites = Site.query.filter_by(name=name).first()
             if sites:
                 flash('O site já existe no banco de dados.')
             else:
                 # Get the HTTP Status
-                code = get_http_status(url)
+                http_status = http.get_http_status(url)
 
                 # Create new task
-                cron_name = add_http_task(int(time))
+                cron_id = tasks.add_http_task(int(cron_time))
 
                 # Adiciona um novo site ao banco de dados de HTTP Status
-                add_http_db(url, name, int(time), cron_name, code)
+                http.add_http_db(name, url, int(cron_time), cron_id, http_status)
 
                 # Get SSL Status
-                days, organization, info = get_ssl_status(url)
+                days, organization, info = ssl.get_ssl_status(url)
 
                 # Adiciona um novo site ao banco de dados de SSL Status
-                add_ssl_db(name, url, days, organization, info)
+                ssl.add_ssl_db(name, url, days, organization, info)
 
-                flash('Site adicionado com sucesso')
+                flash('Site adicionado com sucesso.')
 
 
     return render_template('new.html')

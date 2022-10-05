@@ -6,3 +6,4 @@ flask_sqlalchemy
 Flask-APScheduler
 requests
 flask-crontab
+flask-talisman
