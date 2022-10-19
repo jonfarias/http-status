@@ -1,9 +1,0 @@
-flask
-json2html
-wheel
-flask_sqlalchemy
-#pandas
-Flask-APScheduler
-requests
-flask-crontab
-flask-talisman

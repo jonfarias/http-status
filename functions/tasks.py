@@ -61,6 +61,8 @@ def cron_sites(*args):
     with scheduler.app.app_context():   
         sites = Site.query.filter_by(cron_id=cron_id).first()
 
+        time_now, next_run = http.get_http_time(cron_time)
+
         http_status = http.get_http_status(sites.url)
 
 
@@ -68,7 +70,11 @@ def cron_sites(*args):
         print(sites.url, file=sys.stderr)
         print(sites.cron_id, file=sys.stderr)
         print(sites.http_status, file=sys.stderr)
-
+        print(sites.last_run, file=sys.stderr)
+        print(sites.next_run, file=sys.stderr)
+        
+        sites.last_run = time_now
+        sites.next_run = next_run
         sites.http_status = http_status
         db.session.commit()
 
