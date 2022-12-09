@@ -1,5 +1,10 @@
 """SSL Functions."""
 
+# Fix ImportError
+import os
+import sys  
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+
 # Debug
 import sys
 
@@ -7,8 +12,8 @@ import sys
 import datetime, socket, ssl
 
 # Database
-from ..app import db
-from ..models import Ssl
+from http_check.app import db
+from http_check.models import Ssl
 
 
 def add_ssl_db(name, url, days, organization, info):
@@ -30,7 +35,9 @@ def get_ssl_status(hostname: str, port: int = 443):
                 ssl_info = ssock.getpeercert()
                 expiry_date = datetime.datetime.strptime(ssl_info['notAfter'], '%b %d %H:%M:%S %Y %Z')
                 delta = expiry_date - datetime.datetime.utcnow()
-                print(f'{hostname} expires in {delta.days} day(s)', file=sys.stderr)
+                
+                # Log
+                #print(f'{hostname} expires in {delta.days} day(s)', file=sys.stderr)
 
                 # Days
                 days = delta.days

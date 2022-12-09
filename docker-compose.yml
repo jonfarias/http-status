@@ -3,6 +3,13 @@ services:
   web:
     build: .
     ports:
-      - "5000:5000"
+      - 5000:5000
+    networks:
+      - web-flask
     volumes:
-      - .:/usr/src/http_check/
+      #- .:/usr/src/http_check/
+      - ./databases:/usr/src/databases/
+
+networks:
+  web-flask:
+    driver: bridge

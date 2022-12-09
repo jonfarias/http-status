@@ -1,6 +1,11 @@
 """Log scheduler events."""
 
-from .events import (
+# Fix ImportError
+import os
+import sys  
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+
+from .http_check.functions.events import (
     EVENT_JOB_ADDED,
     EVENT_JOB_ERROR,
     EVENT_JOB_EXECUTED,
@@ -9,7 +14,7 @@ from .events import (
     EVENT_JOB_SUBMITTED,
 )
 
-from ..extensions import scheduler
+from http_check.extensions import scheduler
 
 
 def job_missed(event):

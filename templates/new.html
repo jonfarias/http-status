@@ -12,23 +12,26 @@
 
 <div class="card">
     <div class="card-header">
-      Add new site
+      <ul class="nav nav-pills card-header-pills">
+        <li class="nav-item">
+            <a class="nav-link active" href="#">Add New Site</a>
+        </li>
     </div>
 
   <div class="card-body">
 
     <form method="post">
-      <label for="name" class="form-label">Name</label>
+      <label for="name" class="form-label text-dark">Name</label>
         <div class="input-group mb-3">
           <input type="text" class="form-control" placeholder="Example" name="name" value="{{ request.form['name'] }}">
         </div>
 
-      <label for="url" class="form-label">URL</label>
+      <label for="url" class="form-label text-dark">URL</label>
         <div class="input-group mb-3">
           <input type="text" class="form-control" placeholder="https://example.com/" name="url" value="{{ request.form['url'] }}">
         </div>
 
-      <label for="cron_time" class="form-label">Time</label>
+      <label for="cron_time" class="form-label text-dark">Time</label>
         <div class="input-group mb-3">
           <input type="text" class="form-control" placeholder="Time in minutes (1 to 5)" name="cron_time" value="{{ request.form['cron_time'] }}">
         </div>

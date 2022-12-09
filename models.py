@@ -1,4 +1,13 @@
-from .app import db
+"""Database Models"""
+
+# Fix ImportError
+import os
+import sys  
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+
+from http_check.app import db
+from http_check.app import ma
+
 
 class Site(db.Model):
     id = db.Column(db.Integer, primary_key=True) # 0
@@ -10,6 +19,10 @@ class Site(db.Model):
     next_run = db.Column(db.Integer) # NEXT_RUN
     last_run = db.Column(db.Integer) # LAST_RUN
 
+class SiteSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        fields = ("id", "name", "url", "cron_time", "cron_id", "http_status", "next_run", "last_run")
+
 class Ssl(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(24), index=True, unique=True)
@@ -17,3 +30,7 @@ class Ssl(db.Model):
     days = db.Column(db.Integer)
     organization = db.Column(db.String(24))
     status = db.Column(db.String(24))
+
+class SslSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        fields = ("id", "name", "domain", "days", "organization", "status")

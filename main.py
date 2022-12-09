@@ -1,21 +1,23 @@
+"""Web Pages"""
+
+# Fix ImportError
+import os
+import sys  
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+
 # Flask Dependencies
-from flask import render_template, Blueprint, jsonify, request, url_for, flash, redirect, make_response
-from json2html import *
+from flask import render_template, Blueprint, request, flash, redirect, url_for
 
 # Database
-from .app import db
-from .models import Site, Ssl
+from http_check.app import db
+from http_check.models import Site, Ssl
 
 # Import some functions
-from .functions import http
-from .functions import ssl
-from .functions import tasks
+from http_check.functions import http
+from http_check.functions import ssl
+from http_check.functions import tasks
 
 main = Blueprint('main', __name__)
-
-incomes = [
-  { 'description': 'salary', 'amount': 5000 } 
-]
 
 @main.route('/')
 def index():
@@ -31,7 +33,7 @@ def ssl_check():
     ssls = Ssl.query.all()
     return render_template('ssl.html', ssls=ssls)
 
-@main.route('/new', methods=('GET', 'POST'))
+@main.route('/new', methods=['GET', 'POST'])
 def new_site():
     if request.method == 'POST':
         url = request.form['url']
@@ -66,14 +68,11 @@ def new_site():
 
                 flash('Site adicionado com sucesso.')
 
+                return redirect(url_for('main.http_check'))
+
 
     return render_template('new.html')
 
-
-@main.route('/checks.json', methods=['GET'])
-def chat():
-  #return jsonify(incomes)
-  return render_template('cron.html')
 
 
 

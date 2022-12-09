@@ -1,11 +1,16 @@
 """HTTP Functions."""
 
+# Fix ImportError
+import os
+import sys  
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+
 # HTTP Status
 import requests
 
 # Database
-from ..app import db
-from ..models import Site
+from http_check.app import db
+from http_check.models import Site
 
 # TIME
 from datetime import datetime, timedelta

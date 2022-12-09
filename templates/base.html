@@ -2,7 +2,7 @@
 <html>
     <head>
         <title>HTTP Check</title>
-        <link rel="stylesheet" href="/static/css/light.css">
+        <!--link rel="stylesheet" href="/static/css/light.css"-->
         <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" >
         <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome.min.css') }}">
         <link rel="shortcut icon" href="{{ url_for('static', filename='images/android-chrome-192x192.png') }}">
@@ -18,7 +18,7 @@
               <a class="btn btn-primary" href="{{ url_for('main.http_check') }}">HTTP Status</a>
               <a class="btn btn-primary" href="{{ url_for('main.ssl_check') }}">SSL</a>
               <a class="btn btn-icon btn-outline-secondary" href="{{ url_for('main.new_site') }}"><i class="fa-solid fa-plus"></i></a>
-              <a class="btn btn-icon btn-outline-secondary" href="/checks/admin"><i class="fa-solid fa-gear"></i></a>
+              <!--a class="btn btn-icon btn-outline-secondary" href="/checks/admin"><i class="fa-solid fa-gear"></i></a-->
             </p>
           </div>
         </div>
@@ -27,6 +27,7 @@
         {% endblock %}
   
         <div class="small text-muted">
+          <p></p>
             <a href="https://apiki.com/">WP Care Bot</a>
               0.1
         </div>
