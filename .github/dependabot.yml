@@ -1,0 +1,7 @@
+version: 2
+updates:  
+  # Poetry Automation
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "daily" 
