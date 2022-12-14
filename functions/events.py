@@ -1,8 +1,7 @@
 """Log scheduler events."""
 
+import os, sys
 # Fix ImportError
-import os
-import sys  
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 from .http_check.functions.events import (

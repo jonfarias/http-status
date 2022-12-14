@@ -1,12 +1,10 @@
 """Adding tasks on app."""
 
+import os, sys
 # Fix ImportError
-import os
-import sys  
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 from http_check.extensions import scheduler
-import sys
 import time, calendar
 
 #Import for database
@@ -21,8 +19,7 @@ from http_check.functions import ssl
 @scheduler.task(
     "interval",
     id="job_sync",
-    seconds=30,
-    #minutes=30,
+    minutes=1440,
     max_instances=1,
     start_date="2022-01-01 00:00:00",
 )
@@ -33,7 +30,7 @@ def cron_ssl():
 
     # oh, do you need something from config?
     with scheduler.app.app_context():
-        ssls = Ssl.query.all()
+        ssls = db.session.execute(db.select(Ssl).order_by(Ssl.id)).scalars().all()
         if ssls:
             for i_ssl in ssls:
                 url = i_ssl.domain
@@ -52,15 +49,15 @@ def add_http_task(cron_time):
     cron_time: 1|2|3|4|5
     """
 
-    id_job = 'cron_' + str(calendar.timegm(time.gmtime()))
+    cron_id = 'cron_' + str(calendar.timegm(time.gmtime()))
 
     job = scheduler.add_job(
         func=cron_sites,
         trigger="interval",
         minutes=cron_time,
-        id=id_job,
-        name=id_job,
-        args=[id_job, cron_time],
+        id=cron_id,
+        name=cron_id,
+        args=[cron_id, cron_time],
         replace_existing=True,
     )
     return job.id
@@ -76,7 +73,7 @@ def cron_sites(*args):
     cron_time = args[1]
 
     with scheduler.app.app_context():   
-        sites = Site.query.filter_by(cron_id=cron_id).first()
+        sites = db.session.execute(db.select(Site).filter_by(cron_id=cron_id)).scalars().one()
 
         time_now, next_run = http.get_http_time(cron_time)
 
@@ -95,3 +92,12 @@ def cron_sites(*args):
         db.session.commit()
 
         #print(f"running cron_sites task with id {cron_id} in {cron_time} minutes with status {sites.http_status}!", file=sys.stderr)  # noqa: T001
+
+def remove_http_task(cron_id):
+    """Remove a task for http.
+    cron_id: cron_14545465
+    """
+
+    job = scheduler.remove_job(cron_id)
+
+    return job

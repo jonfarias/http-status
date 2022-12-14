@@ -3,24 +3,30 @@
 {% block content %}
 
 {% with messages = get_flashed_messages() %}
-{% if messages %}
-<div class="alert alert-secondary" role="alert">
-  {{ messages[0] }}
-</div>
-{% endif %}
+  {% if messages %}
+    {% if messages[0] == 'Login feito com sucesso.' %}
+      <div class="alert alert-success" role="alert">
+        {{ messages[0] }}
+      </div>
+    {% else %}
+      <div class="alert alert-info" role="alert">
+        {{ messages[0] }}
+      </div>
+    {% endif %}
+  {% endif %}
 {% endwith %}
 
 <div class="card">
     <div class="card-header">
       <ul class="nav nav-pills card-header-pills">
         <li class="nav-item">
-            <a class="nav-link active" href="#">Add New Site</a>
+            <a class="nav-link active" href="{{ url_for('main.new_site') }}">Add New Site</a>
         </li>
     </div>
 
   <div class="card-body">
 
-    <form method="post">
+    <form method="POST" action="{{ url_for('main.new_site_post') }}">
       <label for="name" class="form-label text-dark">Name</label>
         <div class="input-group mb-3">
           <input type="text" class="form-control" placeholder="Example" name="name" value="{{ request.form['name'] }}">
@@ -28,7 +34,7 @@
 
       <label for="url" class="form-label text-dark">URL</label>
         <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="https://example.com/" name="url" value="{{ request.form['url'] }}">
+          <input type="text" class="form-control" placeholder="https://example.com" name="url" value="{{ request.form['url'] }}">
         </div>
 
       <label for="cron_time" class="form-label text-dark">Time</label>

@@ -51,12 +51,14 @@ RUN poetry install --no-interaction --no-cache --without dev --no-root
 COPY ./ ./
 
 ENV FLASK_APP=/usr/src/http_check/app.py
-ENV FLASK_DEBUG=false
+#ENV FLASK_DEBUG=True
+#ENV FLASK_ENV=development
+ENV FLASK_DEBUG=False
 ENV FLASK_ENV=production
 
 # Run Application
 EXPOSE 5000:5000
 
-CMD [ "poetry", "run", "python3", "-m", "flask", "run", "--host=0.0.0.0" ]
+#CMD [ "poetry", "run", "python3", "-m", "flask", "run", "--host=0.0.0.0", "--cert=./keys/cert.pem", "--key=./keys/key.pem" ]
 
-#CMD [ "poetry", "run", "python3", "-m", "gunicorn", "--bind", "0.0.0.0:5000", "app:create_app()" ]
+CMD [ "poetry", "run", "python3", "-m", "gunicorn", "--certfile=./keys/cert.pem", "--keyfile=./keys/key.pem", "--bind", "0.0.0.0:5000", "app:create_app()" ]

@@ -1,10 +1,8 @@
 # Others
-ssl_test.py
-ssl.html
 README.md
-sites.csv
 build.sh
-cron.py
+.env.example
+.dockerignore
 
 # Python
 __pycache__
@@ -15,4 +13,5 @@ test/
 docker-compose.yml
 Dockerfile
 
-databases
+databases/
+flask_session/

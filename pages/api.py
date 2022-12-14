@@ -1,13 +1,11 @@
 """API pages"""
 
+import os, sys
 # Fix ImportError
-import os
-import sys  
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 # Flask Dependencies
 from flask import Blueprint, jsonify, request
-import sys
 
 # Database
 from http_check.models import Site, Ssl, SiteSchema, SslSchema
@@ -44,7 +42,7 @@ def api_all_http():
             return "No results find.", 404
 
 
-@api.route('/http/<name_site>', methods = ['GET'])
+@api.route('/http/<name_http>', methods = ['GET'])
 def api_http(name_http):
     if (request.method == 'GET'):
         try:

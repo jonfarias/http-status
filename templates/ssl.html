@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+      <div class="card">
+            <div class="card-header">
+              <ul class="nav nav-pills card-header-pills">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ url_for('main.ssl_check') }}">SSL</a>
+                    </li>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table card-table table-striped table-vcenter">
+                    <thead>
+                        <tr>
+                          <th>Domain</th>
+                          <th>Days</th>
+                          <th>Organization Name</th>
+                          <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                      {% for ssl in ssls %}
+                      <tr>
+                        <td>
+                          <div class="danger"><a href="{{ ssl.domain }}">{{ ssl.domain }}</a></div>
+                        </td>
+                        <td>
+                          <div>
+                            <strong>{{ ssl.days }}</strong>
+                          </div>
+                        </td>
+                        <td>
+                          <div>           
+                            <strong>{{ ssl.organization }}</strong>
+                          </div>
+                        </td>
+                        <td>
+                          {% if ssl.status == 'OK' %}
+                          <i class="fa-solid fa-file-circle-check"></i>
+                          {% elif ssl.status == 'Attention' %}
+                          <i class="fa-solid fa-file-circle-exclamation"></i>
+                          {% elif ssl.status == 'Fail' %}
+                          <i class="fa-solid fa-file-circle-xmark"></i>
+                          {% else %}
+                          <i class="fa-solid fa-file-circle-question"></i>
+                          {% endif %}
+                        </td>
+                      </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+      </div>
+
+{% endblock %}

@@ -11,6 +11,14 @@ To run the project use `Docker`
   docker compose up
 ```
 
+## Build your own keys and move to directory keys
+
+- When running talisman, it forces everything to HTTPS except when it's in debug mode, so it needs some keys to use HTTPS.
+
+```bash
+openssl req -x509 -newkey rsa:4096 -nodes -out cert.pem -keyout key.pem -days 365
+```
+
 ## Autor
 
 - [@jonfarias](https://www.github.com/jonfarias)

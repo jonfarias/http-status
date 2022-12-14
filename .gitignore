@@ -160,11 +160,12 @@ cython_debug/
 
 # Others
 ssl_test.py
-ssl.html
-README.md
 sites.csv
 build.sh
 cron.py
+cert.pem
+key.pem
+flask_session
 
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
