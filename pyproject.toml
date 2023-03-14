@@ -9,7 +9,7 @@ packages = [{include = "http_check"}]
 [tool.poetry.dependencies]
 python = "^3.10"
 apscheduler = "^3.9.1.post1"
-datetime = "^4.7"
+datetime = "^5.1"
 flask = "^2.2.2"
 flask-apscheduler = "^1.12.4"
 flask-login = "^0.6.2"
